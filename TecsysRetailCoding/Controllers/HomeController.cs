@@ -17,6 +17,7 @@ namespace TecsysRetailCoding.Controllers
         public ActionResult Default(string returnUrl)
         {
             var model = (HomeViewModel)TempData["model"];
+            //to avoid calling database again
             if(model!=null && model.CarProducts.Any())
                 return View(model);
             ViewBag.ReturnUrl = returnUrl;

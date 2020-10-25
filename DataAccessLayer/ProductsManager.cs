@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using DataAccessLayer.Enums;
-using System.Data.Entity.Core;
-using System.Security.Cryptography;
-using System.Text;
 using Core;
 
 namespace DataAccessLayer
@@ -22,6 +19,11 @@ namespace DataAccessLayer
             return repo.GetProducts().Where(p => p.ProductName.ToLower().Contains(criteria.ToLower())).ToList();
         }
 
+        /// <summary>
+        /// This method converts Products Ids sent from front end to database model.
+        /// </summary>
+        /// <param name="items"></param>
+        /// <returns></returns>
         public List<CartItems> ProcessCartItems(List<int> items)
         {
             Guid g = Guid.NewGuid();
@@ -33,7 +35,7 @@ namespace DataAccessLayer
                     CartId = g.ToString(),
                     DateCreated = DateTime.Now,
                     ProductId = item,
-                    ItemId = helper.GenerateUnqiueItemId(item, g.ToString()),
+                    ItemId = helper.GenerateUnqiueItemId(item, g.ToString()),//we can generate unqiue Id as business required I am generating it for test purpose
                     Quantity = 1
                 };
                 //Default value can be added in table in database or A trigger can be added in database which will update this field 

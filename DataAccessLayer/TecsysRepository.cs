@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Core.Objects;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Validation;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
 
 namespace DataAccessLayer
 {
+    //to kept the code simple I have'nt used database model and then some business dto seperate.
     public class TecsysRepository : IDisposable
     {
+        //we can improve repo methods by writing our own customized method
+        //which can help in logging userName and errors as well
         protected DbContext DbContext;
         public List<Products> GetProducts( ){
             TecsysContext tecsysContext = new TecsysContext();
@@ -24,7 +21,6 @@ namespace DataAccessLayer
             tecsysContext.CartItems.AddRange(items);
             tecsysContext.SaveChanges();
         }
-
         public void Dispose()
         {
             DbContext?.Dispose();
